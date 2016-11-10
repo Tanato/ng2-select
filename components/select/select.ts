@@ -119,7 +119,7 @@ let styles = `
         <span *ngIf="active.length <= 0" class="ui-select-placeholder text-muted">{{placeholder}}</span>
         <span *ngIf="active.length > 0" class="ui-select-match-text pull-left"
               [ngClass]="{'ui-select-allow-clear': allowClear && active.length > 0}"
-              [innerHTML]="sanitize(active[0].text)"></span>
+              [innerHTML]="sanitize(active[0][textField])"></span>
         <i class="dropdown-toggle pull-right"></i>
         <i class="caret pull-right"></i>
         <a *ngIf="allowClear && active.length>0" class="btn btn-xs btn-link pull-right" style="margin-right: 10px; padding: 0;" (click)="remove(activeOption)">
@@ -184,7 +184,7 @@ let styles = `
                <a class="close"
                   style="margin-left: 5px; padding: 0;"
                   (click)="remove(a)">&times;</a>
-               <span>{{a.text}}</span>
+               <span>{{a[textField]}}</span>
            </span>
         </span>
     </span>
@@ -306,7 +306,7 @@ export class SelectComponent implements OnInit {
     if (this._active && this._active.length > 0) {
       result = [];
       for (let entry of this._active) {
-        var i: any;
+        var i: any = {};
         i[this.idField] = entry.id;
         i[this.textField] = entry.text;
         result.push(i);
